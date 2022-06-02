@@ -1,12 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 
 @Injectable()
 export class LogsService {
 
     processFile(file: Express.Multer.File) {
-
+        if(!file){
+            throw new HttpException("File Not Found", HttpStatus.BAD_REQUEST);
+        }
         try {
+            
             const fileData = fs.readFileSync(file.path, 'utf8');
             const parseFileIntoArray = fileData.split("\n");
             //Parsing each line into array
@@ -32,12 +35,7 @@ export class LogsService {
                 message: "File successfully uploaded !!"
             }
         } catch (error) {
-            return {
-                data: null,
-                success: false,
-                message: "Internal Server Error Occurred."
-            }
-
+            throw new HttpException("Error In Uploading", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

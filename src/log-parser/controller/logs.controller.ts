@@ -1,4 +1,4 @@
-import { Controller, HttpCode, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { LogsService } from '../service/logs.service';
 
@@ -9,9 +9,6 @@ export class LogsController {
     @Post()
     @UseInterceptors(FileInterceptor('file'))
     uploadLog(@UploadedFile() file : Express.Multer.File): any {
-    
-      
       return this.logService.processFile(file);
-
     }
 }
