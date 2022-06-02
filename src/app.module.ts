@@ -12,6 +12,6 @@ import { LogsService } from './logs/service/logs.service';
     })
   ],
   controllers: [AppController, LogsController],
-  providers: [AppService,LogsService],
+  providers: [AppService, LogsService],
 })
-export class AppModule {}
+export class AppModule { }
